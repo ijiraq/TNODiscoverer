@@ -1,29 +1,7 @@
-% \documentclass[linenumbers, manuscript]{aastex631}
-\documentclass{aastex631}
-\newcommand{\vdag}{(v)^\dagger}
-\newcommand\aastex{AAS\TeX}
-\newcommand\latex{La\TeX}
-\usepackage{mathtools}
+\startchapter{A Trans-Neptunian Object and Solar System Object Discovery Method with Convolutional Neural Networks for Future Surveys}
+\label{chapter: Paper}
 
-\begin{document}
-
-\title{A Trans-Neptunian Object and Solar System Object Discovery Method with Convolutional Neural Networks for Future Surveys}
-\author[0000-0002-4258-2964]{Aram I}
-\affiliation{University of Victoria, Department of Physics and Astronomy, Elliott Building, 3800 Finnerty Road, Victoria, British Columbia, Canada, V8P 5C2}
-\author[0000-0002-4258-2964]{J. J. Kavelaars}
-\affiliation{University of Victoria, Department of Physics and Astronomy, Elliott Building, 3800 Finnerty Road, Victoria, British Columbia, Canada, V8P 5C2}
-\affiliation{NRC Herzberg Astronomy and Astrophysics, 5071 West Saanich Road, Victoria, British Columbia, Canada, V9E 2E7}
-\affiliation{Department of Physics and Astronomy, University of British Columbia, 6224 Agricultural Road, Vancouver, BC V6T 1Z1, Canada}
-\author[0000-0002-4258-2964]{Hossen Teimoorinia}
-\affiliation{University of Victoria, Department of Physics and Astronomy, Elliott Building, 3800 Finnerty Road, Victoria, British Columbia, Canada, V8P 5C2}
-\affiliation{NRC Herzberg Astronomy and Astrophysics, 5071 West Saanich Road, Victoria, British Columbia, Canada, V9E 2E7}
-\author[0000-0002-4258-2964]{Wesley Fraser}
-\affiliation{University of Victoria, Department of Physics and Astronomy, Elliott Building, 3800 Finnerty Road, Victoria, British Columbia, Canada, V8P 5C2}
-\affiliation{NRC Herzberg Astronomy and Astrophysics, 5071 West Saanich Road, Victoria, British Columbia, Canada, V9E 2E7}
-\author[0000-0002-4258-2964]{Edward Ashton}
-\affiliation{Institute of Astronomy and Astrophysics, Academia Sinica, Taipei, Taiwan}
-
-\begin{abstract}
+\section{abstract}
 
 % Title
 We present a deep learning method of searching for Trans-Neptunian objects (TNOs) and solar system objects (SSOs) in wide-field survey imaging data.
@@ -52,9 +30,6 @@ We tested trained models on test sets from different sky regions and discovered 
 % Conclusion
 This paper shows deep learning object detection algorithms can aid in the discovery of TNOs and SSOs, supporting future discovery pipeline development.
 
-\end{abstract}
-
-\keywords{Solar system(1528) --- Kuiper belt(893) --- Detection(1911) --- Neural networks(1933)}
 
 \section{Introduction} \label{sec:intro}
 Trans-Neptunian Objects (TNOs) are the population of small solar system objects with a semi-major axis of more than 30~au (Neptune) and less than about 2000~au (Oort Cloud), and solar system objects (SSOs) are all natural bodies in the solar system that are neither the Sun nor planets.
@@ -107,7 +82,7 @@ In other words, if there are 32 nodes in both previous layer and the current lay
 We utilized the \texttt{keras} package for modelling and construct a basic FCNN architecture by stacking multiple \texttt{dense} layers.  
 Our FCNN was built with an input layer (2, 64, 64), one flattened layer (8192), two dense layers (256), and an output layer (2).
 
-\begin{deluxetable}{l|rrrrr}
+\begin{table}
 \centering
 \caption{Architecture List with performance and the number of parameters on ImageNet validation set.
 The Top-1 accuracy values of AlexNet, VGG-16, and MobileNet are from \cite{howard2017mobilenets}, and the value of ResNet50 is from \cite{he2015deep}. 
@@ -115,17 +90,15 @@ Top-1 accuracy considers an image correctly classified if the classifier assign 
 The depth is the number of convolutional layers and fully connected layers.
 Because the ILSVRC data set used differs from year to year, the accuracy varies slightly from year to year for the same architecture \citep{2014arXiv1409.0575R}.}
 \label{tab:archlist}
-\tablehead{
- \colhead{Architecture} & \colhead{Year} & \colhead{Top-1 Acc.} & \colhead{Parameters}& \colhead{Depth} & \colhead{Characteristics}
- }
-  \startdata
+  \begin{tabular}{l|rrrrr}
+ \colhead{Architecture} & \colhead{Year} & \colhead{Top-1 Acc.} & \colhead{Parameters}& \colhead{Depth} & \colhead{Characteristics}\\
     FCNN & - & - & 2M & 3 & A simple fully-connected NN\\
     AlexNet & 2011 & 57.2\% & 60M & 8 & ReLU, overlapping pooling\\
     VGG-16 & 2014 & 71.5\% & 138M & 16 & simple $3\times3$ filters\\
     ResNet50 & 2015 & 79.3\% & 26M & 50 & residual units\\
     MobileNet & 2017 & 70.6\% & 4.2M & 28 & low computational cost
-    \enddata
-\end{deluxetable}
+    \end{tabular}
+\end{table}
 
 \subsubsection{Convolutional Neural Networks}
 \label{subsubsect:CNN}
@@ -327,18 +300,16 @@ Unlike the randomized sub-image centre positions on the left plot, the gaps betw
 The step between sub-images was set at 1 pixel smaller than the 64$\times$64 pixel sub-image to avoid an edge problem, which is a problem of having a moving object right at the edge of a sub-image.  This full data set is used to evaluate the detection efficiency of our algorithm.
 
 
-\begin{deluxetable}{l|cccc}
+\begin{table}
   \caption{Examples of CFHT Megacam datasets names used in this research}
   \label{tab:Datasets}
-\tablehead{
- \colhead{} & \colhead{5th CCD} & \colhead{10th CCD} & \colhead{20th CCD}& \colhead{5th+10th+20th}
- }
-\startdata
+\begin{tabular}{l|cccc}
+ \colhead{} & \colhead{5th CCD} & \colhead{10th CCD} & \colhead{20th CCD}& \colhead{5th+10th+20th} \\
     23th Magnitude & C05M23 & C10M23  & C20M23 & C051020M23\\ 
     25th Magnitude & C05M25 & C10M25 & C20M25 & C051020M25\\  
     27th Magnitude & C05M27 & C10M27 & C20M27 & C051020M27\\
-\enddata
-\end{deluxetable}
+\end{tabular}
+\end{table}
 
 In summary, for training sets, we used FITS files from three CCDs (The 5, 10, and 20th CCD) to generate two-channel sub-images at randomized positions on the image.
 The sub-image sets from the nth CCD was named as ``CnM27'', and its sub-samples containing only bright ones are named as ``CnM23'' or ``CnM25'', while the 23, 25, and 27 means the maximum magnitude of planted objects in the sub-image sets.
@@ -408,14 +379,12 @@ Which can be used as a single number to express both recall and precision metric
     recall = \frac{TP}{TP+FN},\:\:precision=\frac{TP}{TP+FP},\:\textrm{and}\:\:F1 = \frac{2}{\frac{1}{recall}+\frac{1}{precision}}.
 \end{equation}
 
-\begin{deluxetable}{l|r|rrr|rrrr}
+\begin{table}
  \label{tab:Classifier Comparison}
   \caption{Classification performance of tested networks, based on the C051020M25 validation set.
   ``Param.'' is the number of parameters in each model, and other metrics are explained in section \ref{subsubsect: Classification}. Larger is better for recall, precision, and F1.}
-\tablehead{
- \colhead{Architecture} & \colhead{Param.} & \colhead{Recall} & \colhead{Precision}& \colhead{F1} & \colhead{TP} & \colhead{FP} & \colhead{FN} & \colhead{TN}
- }
-\startdata
+\begin{tabular}{l|r|rrr|rrrr}
+ \colhead{Architecture} & \colhead{Param.} & \colhead{Recall} & \colhead{Precision}& \colhead{F1} & \colhead{TP} & \colhead{FP} & \colhead{FN} & \colhead{TN}\\
     FCNN & 2.2M & 0.00 & 0.00 & 0.00 & 0 & 0 & 120045 & 119955\\
 %    AlexNet-like & 2.8M & 0.787 & 0.879 & 0.830 & 94414 & 12986 & 25631 & 106969\\ 
     AlexNet-like & 2.8M & 0.79 & 0.88 & 0.83 & 94414 & 12986 & 25631 & 106969\\ 
@@ -429,8 +398,8 @@ Which can be used as a single number to express both recall and precision metric
     MobileNet & 3.2M & 0.91 & 0.92 & 0.92 &109631&9978&10454&109937\\
 %    MobileNetV2 & 2.3M & 0.914 &  0.885 & 0.900 &  109708 & 14212 & 10335 & 105745\\
     MobileNetV2 & 2.3M & 0.91 &  0.89 & 0.90 &  109708 & 14212 & 10335 & 105745\\
-\enddata
-\end{deluxetable}
+\end{tabular}
+\end{table}
 
 % Timestamp: 2022-09-10
 
@@ -454,11 +423,11 @@ In other words, if TNOs detection per image is not critical but false positives 
 If however we need to maximize detection even at the expense of a higher visual inspection burden, we can set a lower threshold and regard recall to be more important than precision. 
 The impact on the overall detection efficiency caused by adjusting the threshold is illustrated in Figure~\ref{fig:completeness single}.
 
-\begin{deluxetable}{l|r|rrrrrr}
+\begin{table}
   \caption{Regression performance on C051020M25 validation set. `Pos.' and `mag` columns refer to positional and magnitude uncertainties.  `MAE': Mean Absolute Error. `RMSE': Root Mean Square Error. Lower values indicate better performance.}
   \label{tab:Regressor Comparison}
-  \tablehead{\colhead{Architecture} & \colhead{Param.} & \colhead{Pos. MAE} & \colhead{Pos. RMSE} & \colhead{Mag. MAE} & \colhead{Mag. RMSE}}
-  \startdata
+\begin{tabular}{l|r|rrrrrr}
+  \colhead{Architecture} & \colhead{Param.} & \colhead{Pos. MAE} & \colhead{Pos. RMSE} & \colhead{Mag. MAE} & \colhead{Mag. RMSE} \\
     FCNN &4.3M&10.5&16.0&1.8&3.0\\
     AlexNet-like &4.0M&1.6&5.3&0.2&0.3\\ 
     VGG-like &1.4M&5.8&6.9&0.2&0.3\\  
@@ -466,8 +435,8 @@ The impact on the overall detection efficiency caused by adjusting the threshold
     ResNet50V2 & 24M&0.8&3.9&0.1&0.2 \\  
     MobileNet &3.2M&0.91&3.8&0.1&0.2\\
     MobileNetV2 &2.3M&3.2&7.1&0.3&0.5\\
-  \enddata
-\end{deluxetable}
+\end{tabular}
+\end{table}
 
 \subsubsection{Regression} \label{subsubsect:FixedDataRgs}
 
@@ -492,22 +461,21 @@ For the remainder of this manuscript we adopted MobileNet.
 After selecting a model we examined the nature of the training data and how the training data influences the model performance.
 
 \setlength{\tabcolsep}{3pt}
-\begin{deluxetable}{c|cc|cc|cc|cc|cc|cc}
+\begin{table}
   \label{tab:Single Chip}
   \caption{Classification performance on validation sets (same chip) and test sets (different chips) at p threshold=0.5.
   The table displays the performance of the models trained on an M25 data set.
   The models were validated/tested on a balanced M23 data set, which is a subset of the M25 validation/test sets, for a better presentation of their effectiveness on brighter objects.}
-  \tablehead{\multicolumn{1}{c|}{Model} & \multicolumn{2}{c|}{Validation} & \multicolumn{2}{c}{Test 1 (C08)}& \multicolumn{2}{c}{Test 2 (C13)}& \multicolumn{2}{c}{Test 3 (C21)}& \multicolumn{2}{c}{Test 4 (C34)}& \multicolumn{2}{c}{Test avg.}\\
-   & Recall & Prec. & Recall & Prec. & Recall & Prec. & Recall & Prec. & Recall & Prec.& Recall & Prec.}
-   \startdata
-%    C05&0.958&0.903&0.910&0.841 &0.899&0.880 &0.663&0.681 &0.660&0.657&0.783&0.765\\
+   \begin{tabular}{c|cc|cc|cc|cc|cc|cc}
+  \multicolumn{1}{c|}{Model} & \multicolumn{2}{c|}{Validation} & \multicolumn{2}{c}{Test 1 (C08)}& \multicolumn{2}{c}{Test 2 (C13)}& \multicolumn{2}{c}{Test 3 (C21)}& \multicolumn{2}{c}{Test 4 (C34)}& \multicolumn{2}{c}{Test avg.} \\
+   & Recall & Prec. & Recall & Prec. & Recall & Prec. & Recall & Prec. & Recall & Prec.& Recall & Prec. \\
 %    C10&0.911& 0.902&0.904&0.820 &0.920&0.875 &0.725&0.681 &0.706&0.663&0.814&0.760\\
 %    C20&0.903& 0.901&0.624&0.681 &0.630&0.652 &0.927&0.884 &0.894&0.871&0.769&0.772\\
     C05&0.96&0.90&0.91&0.84 &0.90&0.88 &0.66&0.68 &0.66&0.66&0.78&0.77\\
     C10&0.91& 0.90&0.90&0.82 &0.92&0.88 &0.72&0.68 &0.71&0.66&0.81&0.76\\
     C20&0.90& 0.90&0.62&0.68 &0.63&0.65 &0.93&0.89 &0.89&0.87&0.77&0.77
-  \enddata
-\end{deluxetable}
+  \end{tabular}
+\end{table}
 
 \subsubsection{Single CCD}\label{subsubsect:SingleCCDandMultipleCCDs}
 
@@ -522,35 +490,35 @@ For instance, the C05 model was effective to classify the C08 data set and C13 d
 The network appears to be training on to characteristics specific to a particular CCD (perhaps the structure of the PSF).  
 To improve the model performance requires an expanded training set.
 
-\begin{deluxetable}{c|cc|cc|cc|cc|cc|cc}
+\begin{table}
 \label{tab:Multiple Chips}
   \caption{Classification performance of the combined data set models on validation sets (same chip) and test sets (different chips) at p threshold=0.5.
   The table displays the performance of the models trained on an M25 data set when validated/tested on a balanced M23 data set.
   The suffixes ``R'' and ``M'' after the model names denote ResNet and MobileNet.}
-  \tablehead{Model &  \multicolumn{2}{c|}{Validation} & \multicolumn{2}{c}{Test 1 (C08)}& \multicolumn{2}{c}{Test 2 (C13)}& \multicolumn{2}{c}{Test 3 (C21)}& \multicolumn{2}{c}{Test 4 (C34)}& \multicolumn{2}{c}{Test avg.}  \\
- & Recall & Prec. & Recall & Prec. & Recall & Prec. & Recall & Prec. & Recall & Prec.& Recall & Prec.}
- \startdata
+ \begin{tabular}{c|cc|cc|cc|cc|cc|cc}
+ Model &  \multicolumn{2}{c|}{Validation} & \multicolumn{2}{c}{Test 1 (C08)}& \multicolumn{2}{c}{Test 2 (C13)}& \multicolumn{2}{c}{Test 3 (C21)}& \multicolumn{2}{c}{Test 4 (C34)}& \multicolumn{2}{c}{Test avg.}  \\
+ & Recall & Prec. & Recall & Prec. & Recall & Prec. & Recall & Prec. & Recall & Prec.& Recall & Prec. \\
 %     C051020R & 0.976 & 0.938 & 0.906 & 0.888 & 0.920 & 0.922 & 0.931 & 0.899 & 0.894 & 0.879 & \textbf{0.913} & \textbf{0.897}\\
 %    C051020M & 0.964 & 0.941 & 0.903 & 0.897 & 0.915 & 0.912 & 0.934 & 0.894 & 0.894 & 0.882 & \textbf{0.912} & \textbf{0.896}\\
     C051020R & 0.98 & 0.94 & 0.91 & 0.89 & 0.92 & 0.92 & 0.93 & 0.90 & 0.89 & 0.88 & \textbf{0.91} & \textbf{0.90}\\
     C051020M & 0.96 & 0.94 & 0.90 & 0.90 & 0.92 & 0.91 & 0.93 & 0.89 & 0.89 & 0.88 & \textbf{0.91} & \textbf{0.90}
-\enddata
-\end{deluxetable}
+\end{tabular}
+\end{table}
 
-\begin{deluxetable}{c|cc|cc|cc|cc|cc|cc}
+\begin{table}
   \caption{Regression performance of the combined data set model on the validation set (same CCDs) and test sets (different CCDs) at threshold = 0.5.
   The table displays the performance of the models trained on an M25 data set when validated/tested on a balanced M23 data set.
   The suffixes ``R'' and ``M'' after the model names denote ResNet and MobileNet.}
   \label{tab:Multiple Chips Regressor}
-  \tablehead{Model &  \multicolumn{2}{c|}{Validation} & \multicolumn{2}{c}{Test 1 (C08)}& \multicolumn{2}{c}{Test 2 (C13)}& \multicolumn{2}{c}{Test 3 (C21)}& \multicolumn{2}{c}{Test 4 (C34)}& \multicolumn{2}{c}{Test avg.}\\  
- & pos. & mag. & pos. & mag. & pos. & mag. & pos. & mag. & pos. & mag. & pos. & mag.}
-\startdata
+\begin{tabular}{c|cc|cc|cc|cc|cc|cc}
+  Model &  \multicolumn{2}{c|}{Validation} & \multicolumn{2}{c}{Test 1 (C08)}& \multicolumn{2}{c}{Test 2 (C13)}& \multicolumn{2}{c}{Test 3 (C21)}& \multicolumn{2}{c}{Test 4 (C34)}& \multicolumn{2}{c}{Test avg.}\\ 
+ & pos. & mag. & pos. & mag. & pos. & mag. & pos. & mag. & pos. & mag. & pos. & mag. \\
 %    C051020R & 0.408 & 0.0798 & 1.89 & 0.198 & 1.55 & 0.188 & 1.30 & 0.145 & 1.34 & 0.178 & \textbf{1.52} & \textbf{0.177}\\
 %    C051020M & 0.500 & 0.103 & 1.88 & 0.208 & 1.56 & 0.208 & 1.34 & 0.178 & 1.87 & 0.209 & \textbf{1.66} & \textbf{0.201}\\
     C051020R & 0.41 & 0.08 & 1.9 & 0.2 & 1.6 & 0.2 & 1.3 & 0.1 & 1.3 & 0.2 & \textbf{1.5} & \textbf{0.18}\\
     C051020M & 0.5 & 0.1 & 1.9 & 0.2 & 1.6 & 0.2 & 1.3 & 0.2 & 1.9 & 0.2 & \textbf{1.7} & \textbf{0.2}
-\enddata
-\end{deluxetable}
+\end{tabular}
+\end{table}
 
 \subsubsection{Multiple CCD}
 \label{subsubsect:MultipleChips}
@@ -738,7 +706,7 @@ The output of the classification model is (p1, p2).
 For each series of sub-images at the same coordinates, we gave them a score by summing up p1 or p2.
 For example, there are 44$\times$43 p's from measuring (1st=1st exposure, 2nd=2nd exposure), (1st, 3rd), (1st, 4th), ..., (2nd, 3rd), (2nd, 4th), ..., (43th, 44th) image pairs with the classification model at fixed coordinates (x1, y1).
 We excluded p's less than 0.99, and hence most of false positives can be avoided.
-Additionally, the value of p's were linearly mapped using the function: $\tilde{p} \coloneqq (x-0.99)\times100$. This function transformed the values from 0.99 to 0, from 0.991 to 0.1, from 0.992 to 0.2, ..., from 0.999 to 0.9, and from 1 to 1.
+Additionally, the value of p's were linearly mapped using the function: $\tilde{p} := (x-0.99)\times100$. This function transformed the values from 0.99 to 0, from 0.991 to 0.1, from 0.992 to 0.2, ..., from 0.999 to 0.9, and from 1 to 1.
 We sum the mapped $\tilde{p}$'s for each time-series sub-image sets.
 This summed probability value, or a score, expresses a likelihood of having a moving source in the sub-image set.
 In other words, the score is the likelihood to detect a moving source in the sub-images fixed at the same sky coordinate throughout the 44 images.
@@ -1019,7 +987,3 @@ This research used the Canadian Advanced Network For Astronomy Research (CANFAR)
 % \end{figure}
 
 
-\clearpage
-
-\bibliography{TNODiscoverer}
-\end{document}
